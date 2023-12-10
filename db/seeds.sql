@@ -1,0 +1,2 @@
+-- departments
+INSERT INTO departments ()
