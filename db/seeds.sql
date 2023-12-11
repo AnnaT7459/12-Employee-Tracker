@@ -1,6 +1,6 @@
 -- departments
 INSERT INTO
-    departments (id, department_name)
+    department (id, department_name)
 VALUES
     ("Sales"),
     ("Engineering"),
@@ -9,7 +9,7 @@ VALUES
 
 -- roles
 INSERT INTO
-    roles (id, title, salary, department_id,)
+    role (id, title, salary, department_id,)
 VALUES
     ("Sales Lead", 100000, 1),
     ("Salesperson", 80000, 1),
@@ -22,7 +22,7 @@ VALUES
 
 -- employees
 INSERT INTO
-    employees (id, first_name, last_name, role_id, manager_id)
+    employee (id, first_name, last_name, role_id, manager_id)
 VALUES
     ("John", "Doe", 1, NULL),
     ("Mike", "Chan", 1, 1),

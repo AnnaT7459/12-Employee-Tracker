@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const express = require('express')
+const fs = require('fs');
 
 const db = mysql.createConnection(
     {
@@ -23,5 +24,10 @@ function init() {
                 message: 'What would you like to do?',
                 choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role'],
             }
-        ])
+        ])}
+        
         function viewAllDepartments() 
+        function viewAllRoles()
+        function viewAllEmployees
+
+    
