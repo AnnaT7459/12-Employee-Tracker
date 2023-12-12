@@ -39,6 +39,10 @@ function init() {
                 addDepartment()
             } else if (data.tasks === 'Add a role') {
                 addRole()
+            } else if (data.tasks === 'Add an employee') {
+                addEmployee()
+            } else if (data.tasks === 'Update an employee role') {
+                updateEmployeeRole()
             }
         })
 }
@@ -82,41 +86,87 @@ function addDepartment() {
             db.query(query, [data.departmentTask], function (err, res) {
                 if (err) throw err;
                 viewAllDepartments()
+                console.log(data)
             });
         })
 }
 
 function addRole() {
     db.query('SELECT NAME name, id value FROM department', (err, departmentData) => {
-    inquirer.prompt([{
-        type: 'input',
-        name: 'roleNameTask',
-        message: 'What is the name of the role?'
-    },
-    {
-        type: 'input',
-        name: 'roleSalaryTask',
-        message: 'What is the salary of the role?'
-    },
-    {
-        type: 'list',
-        name: 'roleDepartmentTask',
-        choices: departmentData, 
-        message: 'Which department does the role belong to?'
-    }
-    ])
-        .then(data => {
-            let query = 'INSERT INTO role (title, salary, department_id) VALUES(?, ?, ?)';
-            db.query(query, [data.roleNameTask, data.roleSalaryTask, data.roleDepartmentTask], function (err, res) {
-                if (err) throw err;
-                viewAllRoles()
-            });
-        })
+        inquirer.prompt([{
+            type: 'input',
+            name: 'roleNameTask',
+            message: 'What is the name of the role?'
+        },
+        {
+            type: 'input',
+            name: 'roleSalaryTask',
+            message: 'What is the salary of the role?'
+        },
+        {
+            type: 'list',
+            name: 'roleDepartmentTask',
+            choices: departmentData,
+            message: 'Which department does the role belong to?'
+        }
+        ])
+            .then(data => {
+                let query = 'INSERT INTO role (title, salary, department_id) VALUES(?, ?, ?)';
+                db.query(query, [data.roleNameTask, data.roleSalaryTask, data.roleDepartmentTask], function (err, res) {
+                    if (err) throw err;
+                    viewAllRoles()
+                    console.log(data)
+                });
+            })
     })
 }
 
+function addEmployee() {
+    db.query('SELECT title, id FROM role', (err, roleData) => {
+        if (err) throw err;
+        // reference: https://www.w3schools.com/Sql/func_mysql_concat.asp
+        db.query('SELECT CONCAT(first_name, " ", last_name) AS manager, id FROM employee', (err, employeeData) => {
+            if (err) throw err;
+            // adds an option if the new employee does not have a manager
+            const managerChoices = [{ name: 'None', value: null }, ...employeeData.map(manager => ({ name: manager.manager, value: manager.id }))];
 
-// function viewAllRoles()
-// function viewAllEmployees
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'employeeFnameTask',
+                    message: "What is the employee's first name?"
+                },
+                {
+                    type: 'input',
+                    name: 'employeeLnameTask',
+                    message: "What is the employee's last name?"
+                },
+                {
+                    type: 'list',
+                    name: 'employeeRoleTask',
+                    choices: roleData.map(role => ({ name: role.title, value: role.id })),
+                    message: "What is the employee's role?"
+                },
+                {
+                    type: 'list',
+                    name: 'employeeManagerTask',
+                    choices: managerChoices,
+                    message: "Who is the employee's manager?"
+                }
+            ])
+                .then(data => {
+                    let query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
+                    db.query(query, [data.employeeFnameTask, data.employeeLnameTask, data.employeeRoleTask, data.employeeManagerTask], function (err, res) {
+                        if (err) throw err;
+                        viewAllEmployees();
+                        console.log(data)
+                    });
+                });
+        });
+    });
+}
+
+
+
 
 
