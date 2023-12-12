@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const express = require('express')
 const fs = require('fs');
+// added printTable with P. Loy tutoring
 const { printTable } = require('console-table-printer')
 
 const db = mysql.createConnection(
