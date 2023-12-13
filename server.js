@@ -85,8 +85,8 @@ function addDepartment() {
             let query = 'INSERT INTO department (name) VALUES(?)';
             db.query(query, [data.departmentTask], function (err, res) {
                 if (err) throw err;
+                console.log(`Added ${data.departmentTask} to database`);
                 viewAllDepartments()
-                console.log(data)
             });
         })
 }
@@ -114,8 +114,8 @@ function addRole() {
                 let query = 'INSERT INTO role (title, salary, department_id) VALUES(?, ?, ?)';
                 db.query(query, [data.roleNameTask, data.roleSalaryTask, data.roleDepartmentTask], function (err, res) {
                     if (err) throw err;
+                    console.log(`Added ${data.roleNameTask} to database`);
                     viewAllRoles()
-                    console.log(data)
                 });
             })
     })
@@ -159,8 +159,8 @@ function addEmployee() {
                     let query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
                     db.query(query, [data.employeeFnameTask, data.employeeLnameTask, data.employeeRoleTask, data.employeeManagerTask], function (err, res) {
                         if (err) throw err;
+                        console.log(`Added ${data.employeeFnameTask} ${data.employeeLnameTask} to database`);
                         viewAllEmployees();
-                        console.log(data)
                     });
                 });
         });
