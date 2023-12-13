@@ -128,6 +128,7 @@ function addEmployee() {
         db.query('SELECT CONCAT(first_name, " ", last_name) AS manager, id FROM employee', (err, employeeData) => {
             if (err) throw err;
             // adds an option if the new employee does not have a manager
+            // map reference: https://www.w3schools.com/jsref/jsref_map.asp
             const managerChoices = [{ name: 'None', value: null }, ...employeeData.map(manager => ({ name: manager.manager, value: manager.id }))];
 
             inquirer.prompt([
