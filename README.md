@@ -16,7 +16,7 @@ Run npm install the dependencies, and run node server.js to start the applicatio
 ## Usage
 Scroll to the task you would like to start with and complete the prompts if necessary.
 
-Walkthrough video link:
+Walkthrough video link: https://drive.google.com/file/d/16PNs3v99l4ByiJaOBszw_MUWzhF49WPE/view
 
 ## Credits
 - M. Mayfield (Office Hours, December 11, 2023)

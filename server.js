@@ -24,7 +24,7 @@ function init() {
                 type: 'list',
                 name: 'tasks',
                 message: 'What would you like to do?',
-                choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role'],
+                choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee'],
             }
         ])
         .then((data) => {
@@ -41,9 +41,7 @@ function init() {
                 addRole()
             } else if (data.tasks === 'Add an employee') {
                 addEmployee()
-            } else if (data.tasks === 'Update an employee role') {
-                updateEmployeeRole()
-            }
+            } 
         })
 }
 init()
@@ -92,7 +90,7 @@ function addDepartment() {
 }
 
 function addRole() {
-    db.query('SELECT NAME name, id value FROM department', (err, departmentData) => {
+    db.query('SELECT name, id value FROM department', (err, departmentData) => {
         inquirer.prompt([{
             type: 'input',
             name: 'roleNameTask',
@@ -166,6 +164,7 @@ function addEmployee() {
         });
     });
 }
+
 
 
 
